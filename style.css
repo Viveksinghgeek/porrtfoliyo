@@ -1,0 +1,800 @@
+
+/* Variables for easy theme customization */
+:root {
+    --primary-color: #007bff; /* A vibrant blue for accents and primary actions */
+    --secondary-color: #6c757d; /* A muted gray for secondary text */
+    --text-color: #333333; /* Dark gray for general body text */
+    --heading-color: #212529; /* Even darker for headings */
+    --background-color: #f8f9fa; /* Light gray for body background */
+    --card-bg: #ffffff; /* White for card backgrounds */
+    --border-color: #dee2e6; /* Light gray for borders */
+    --hover-color: #0056b3; /* Darker blue on hover for primary elements */
+    --light-grey: #e9ecef; /* Very light gray for subtle elements */
+    --dark-bg: #212529; /* Dark background for footer */
+}
+
+/* Basic Resets & Global Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth; /* Smooth scrolling for anchor links */
+}
+
+body {
+    font-family: 'Poppins', sans-serif; /* Using Poppins for a modern look, or 'Arial' */
+    line-height: 1.6;
+    color: var(--text-color);
+    background-color: var(--background-color);
+    overflow-x: hidden; /* Prevent horizontal scroll from responsive elements */
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+section {
+    padding: 80px 0;
+    text-align: center;
+}
+
+h1, h2, h3 {
+    color: var(--heading-color);
+    margin-bottom: 20px;
+    font-weight: 700;
+}
+
+h2 {
+    font-size: 2.8em;
+    margin-bottom: 40px;
+    position: relative;
+    padding-bottom: 10px;
+}
+
+h2::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    transform: translateX(-50%);
+    width: 70px; /* Slightly wider underline */
+    height: 4px; /* Thicker underline */
+    background-color: var(--primary-color);
+    border-radius: 5px;
+}
+
+a {
+    text-decoration: none;
+    color: var(--primary-color);
+    transition: color 0.3s ease;
+}
+
+a:hover {
+    color: var(--hover-color);
+}
+
+.btn {
+    display: inline-block;
+    padding: 12px 25px;
+    border-radius: 5px;
+    font-weight: 600;
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, transform 0.2s ease;
+    cursor: pointer;
+    font-size: 1em;
+}
+
+.btn:hover {
+    transform: translateY(-2px); /* Slight lift on hover */
+}
+
+.btn-primary {
+    background-color: var(--primary-color);
+    color: white;
+    border: 2px solid var(--primary-color);
+}
+
+.btn-primary:hover {
+    background-color: var(--hover-color);
+    border-color: var(--hover-color);
+}
+
+.btn-secondary {
+    background-color: transparent;
+    color: var(--primary-color);
+    border: 2px solid var(--primary-color);
+}
+
+.btn-secondary:hover {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.btn i {
+    margin-left: 8px;
+}
+
+.text-center {
+    text-align: center;
+}
+
+/* 1. Navbar */
+.navbar {
+    background-color: var(--card-bg);
+    padding: 15px 0;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.navbar .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.navbar .logo {
+    font-size: 1.8em;
+    font-weight: bold;
+    color: var(--primary-color);
+    text-decoration: none;
+    line-height: 1; /* Adjust line height for logo */
+}
+
+/* If using an image logo */
+.navbar .logo-img img {
+    height: 50px;
+    width: auto;
+    display: block; /* Remove extra space below image */
+}
+
+.navbar .nav-links ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+
+.navbar .nav-links li {
+    margin-left: 30px;
+}
+
+.navbar .nav-links a {
+    color: var(--text-color);
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.3s ease;
+    padding: 8px 0; /* Add padding for bigger clickable area */
+    position: relative;
+}
+
+.navbar .nav-links a::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 0;
+    height: 2px;
+    background-color: var(--primary-color);
+    transition: width 0.3s ease;
+}
+
+.navbar .nav-links a:hover::after,
+.navbar .nav-links a.active::after { /* Active class for current section */
+    width: 100%;
+}
+
+.navbar .nav-links a:hover,
+.navbar .nav-links a.active {
+    color: var(--primary-color);
+}
+
+/* Hamburger Menu for Mobile */
+.menu-toggle {
+    display: none; /* Hide the checkbox */
+}
+
+.hamburger {
+    display: none; /* Hidden by default */
+    cursor: pointer;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 30px;
+    height: 20px;
+    position: relative;
+    z-index: 1100; /* Ensure hamburger is above menu when open */
+}
+
+.hamburger .bar {
+    display: block;
+    width: 100%;
+    height: 3px;
+    background-color: var(--text-color);
+    border-radius: 5px;
+    transition: all 0.3s ease;
+}
+
+/* 2. Hero Section */
+.hero-section {
+    background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('About\ Me.jpg') no-repeat center center/cover;
+    /* Use a placeholder image if you don't have one: */
+    /* background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://via.placeholder.com/1500x800?text=Hero+Background') no-repeat center center/cover; */
+    color: white;
+    height: 100vh; /* Full viewport height */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    text-align: center;
+    padding: 0 20px; /* Add padding to prevent text touching edges */
+}
+
+.hero-section .greeting {
+    font-size: 1.3em;
+    margin-bottom: 10px;
+    color: var(--light-grey);
+}
+
+.hero-section h1 {
+    font-size: 4.5em;
+    margin-bottom: 15px;
+    color: white;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.5); /* Add subtle shadow for readability */
+}
+
+.hero-section .title {
+    font-size: 2.2em;
+    color: var(--primary-color);
+    margin-bottom: 20px;
+}
+
+.hero-section .short-line {
+    font-size: 1.1em;
+    max-width: 700px;
+    margin: 0 auto 40px;
+    color: var(--light-grey);
+}
+
+.hero-section .btn {
+    font-size: 1.1em;
+    padding: 15px 30px;
+}
+
+
+/* 3. About Me Section */
+.about-section {
+    background-color: var(--card-bg);
+}
+
+.about-content {
+    display: flex;
+    align-items: center;
+    gap: 40px;
+    text-align: left;
+    margin-top: 40px;
+    flex-wrap: wrap; /* Allow wrapping on small screens */
+    justify-content: center; /* Center items when wrapped */
+}
+
+.about-image {
+    flex: 1;
+    min-width: 250px; /* Ensure image doesn't get too small */
+    text-align: center;
+    order: 2; /* Default order on larger screens, text first */
+}
+
+.about-text {
+    flex: 2;
+    min-width: 300px; /* Ensure text doesn't get too narrow */
+    order: 1; /* Default order on larger screens, text first */
+}
+
+.about-text p {
+    margin-bottom: 15px;
+    font-size: 1.05em;
+    line-height: 1.7;
+}
+
+.about-image img {
+    max-width: 320px;
+    height: auto;
+    border-radius: 15px; /* More rounded corners */
+    box-shadow: 0 8px 25px rgba(0,0,0,0.15); /* More prominent shadow */
+    transition: transform 0.3s ease;
+    filter: grayscale(20%); /* Slightly desaturate image */
+}
+
+.about-image img:hover {
+    transform: translateY(-8px);
+    filter: grayscale(0%); /* Full color on hover */
+}
+
+/* 4. Skills Section */
+.skills-section {
+    background-color: var(--background-color);
+}
+
+.skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); /* Responsive grid */
+    gap: 30px;
+    margin-top: 40px;
+    justify-content: center; /* Center items if they don't fill a row */
+}
+
+.skill-item {
+    background-color: var(--card-bg);
+    padding: 30px 20px;
+    border-radius: 12px;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.skill-item:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+}
+
+.skill-item i {
+    font-size: 4em; /* Larger icons */
+    color: var(--primary-color);
+    margin-bottom: 15px;
+}
+
+.skill-item h3 {
+    font-size: 1.2em;
+    margin-bottom: 0;
+    color: var(--heading-color);
+}
+
+/* 5. Projects Section */
+.projects-section {
+    background-color: var(--card-bg);
+}
+
+.projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); /* Adjusted min-width */
+    gap: 30px;
+    margin-top: 40px;
+    justify-content: center;
+}
+
+.project-card {
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+}
+
+.project-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+}
+
+.project-card img {
+    width: 100%;
+    height: 220px; /* Adjusted fixed height for consistency */
+    object-fit: cover;
+    display: block;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.project-card h3 {
+    font-size: 1.6em;
+    margin: 20px 20px 10px;
+    color: var(--heading-color);
+}
+
+.project-card p {
+    padding: 0 20px 20px;
+    font-size: 0.98em;
+    color: var(--text-color);
+    flex-grow: 1; /* Allow description to take available space */
+}
+
+.project-card .project-links {
+    padding: 0 20px 20px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: auto; /* Push links to the bottom */
+}
+
+.project-card .project-links .btn {
+    font-size: 0.9em;
+    padding: 8px 15px;
+}
+
+/* 6. Resume Button Section */
+.resume-section {
+    background-color: var(--primary-color);
+    color: white;
+    padding: 100px 0; /* More vertical padding */
+}
+
+.resume-section h2 {
+    color: white;
+    font-size: 2.5em; /* Slightly smaller to fit better */
+}
+
+.resume-section h2::after {
+    background-color: white;
+}
+
+.resume-section p {
+    font-size: 1.15em;
+    max-width: 800px;
+    margin: 0 auto 40px;
+    color: var(--light-grey);
+}
+
+.resume-section .btn-primary {
+    background-color: white;
+    color: var(--primary-color);
+    border: 2px solid white;
+    font-size: 1.3em; /* Larger button text */
+    padding: 18px 40px; /* Larger button padding */
+}
+
+.resume-section .btn-primary:hover {
+    background-color: var(--light-grey);
+    color: var(--hover-color);
+    border-color: var(--light-grey);
+}
+
+/* 7. Contact Section */
+.contact-section {
+    background-color: var(--background-color);
+}
+
+.contact-intro {
+    font-size: 1.1em;
+    margin-bottom: 40px;
+    color: var(--secondary-color);
+}
+
+.contact-form {
+    max-width: 650px; /* Slightly wider form */
+    margin: 0 auto;
+    background-color: var(--card-bg);
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+    text-align: left;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: var(--heading-color);
+    font-size: 1.05em;
+}
+
+.form-group input,
+.form-group textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid var(--border-color);
+    border-radius: 8px; /* Slightly more rounded inputs */
+    font-size: 1em;
+    color: var(--text-color);
+    background-color: var(--light-grey); /* Light background for inputs */
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.3); /* Clearer focus state */
+}
+
+.contact-form .btn-primary {
+    width: auto;
+    padding: 14px 35px; /* Larger button */
+    font-size: 1.1em;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 30px; /* Space above button */
+}
+
+/* 8. Footer */
+.footer {
+    background-color: var(--dark-bg); /* Darker background for footer */
+    color: white;
+    padding: 40px 0;
+    text-align: center;
+}
+
+.footer .social-links {
+    margin-bottom: 25px;
+}
+
+.footer .social-links a {
+    color: white;
+    font-size: 2em; /* Larger social icons */
+    margin: 0 18px; /* More space between icons */
+    transition: color 0.3s ease, transform 0.2s ease;
+}
+
+.footer .social-links a:hover {
+    color: var(--primary-color);
+    transform: translateY(-3px); /* Lift social icons on hover */
+}
+
+.footer p {
+    font-size: 0.9em;
+    margin-bottom: 8px;
+    color: var(--light-grey);
+}
+
+/* --- Responsive Design with Media Queries --- */
+
+/* Tablet & Smaller Desktops ( pantallas hasta 992px de ancho ) */
+@media (max-width: 992px) {
+    .hero-section h1 {
+        font-size: 3.8em;
+    }
+
+    .hero-section .title {
+        font-size: 2em;
+    }
+
+    h2 {
+        font-size: 2.4em;
+    }
+
+    .skills-grid {
+        grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+        gap: 25px;
+    }
+
+    .skill-item i {
+        font-size: 3.5em;
+    }
+
+    .skill-item h3 {
+        font-size: 1.1em;
+    }
+
+    .projects-grid {
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    }
+
+    .about-content {
+        flex-direction: column; /* Stack image and text vertically */
+        text-align: center;
+    }
+
+    .about-image {
+        order: -1; /* Place image above text on smaller screens */
+        margin-bottom: 30px;
+    }
+}
+
+/* Mobile Devices ( pantallas hasta 768px de ancho ) */
+@media (max-width: 768px) {
+    .navbar .container {
+        flex-wrap: wrap;
+        justify-content: space-between;
+    }
+
+    /* Show hamburger icon */
+    .hamburger {
+        display: flex;
+    }
+
+    /* Hide navigation links by default on mobile */
+    .navbar .nav-links {
+        display: none;
+        flex-direction: column;
+        width: 100%;
+        background-color: var(--card-bg);
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        padding: 10px 0;
+        margin-top: 15px; /* Space below logo/hamburger */
+        border-radius: 8px;
+        position: absolute;
+        top: 70px; /* Adjust based on navbar height */
+        left: 0;
+        z-index: 999;
+        overflow: hidden; /* Hide overflow when closed */
+    }
+
+    .navbar .nav-links ul {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .navbar .nav-links li {
+        margin: 10px 0; /* Adjust vertical spacing for menu items */
+    }
+
+    .navbar .nav-links a {
+        padding: 12px 0;
+        display: block;
+        width: 100%;
+        text-align: center;
+        border-bottom: 1px solid var(--light-grey); /* Subtle separator */
+    }
+    .navbar .nav-links li:last-child a {
+        border-bottom: none; /* No border for the last item */
+    }
+
+    /* Toggle menu visibility with checkbox hack */
+    .menu-toggle:checked ~ .nav-links {
+        display: flex;
+    }
+
+    /* Hamburger animation */
+    .menu-toggle:checked + .hamburger .bar:nth-child(1) {
+        transform: translateY(8px) rotate(45deg);
+    }
+    .menu-toggle:checked + .hamburger .bar:nth-child(2) {
+        opacity: 0;
+    }
+    .menu-toggle:checked + .hamburger .bar:nth-child(3) {
+        transform: translateY(-8px) rotate(-45deg);
+    }
+
+    /* Adjust section padding */
+    section {
+        padding: 60px 0;
+    }
+
+    .hero-section {
+        height: auto; /* Allow content to dictate height */
+        min-height: 100vh; /* Ensure it still takes full height if content is short */
+        padding: 100px 20px 60px; /* Adjust padding for mobile */
+    }
+
+    .hero-section h1 {
+        font-size: 3em;
+    }
+
+    .hero-section .title {
+        font-size: 1.8em;
+    }
+
+    h2 {
+        font-size: 2.2em;
+    }
+
+    .btn {
+        padding: 10px 20px;
+        font-size: 0.95em;
+    }
+
+    .about-image img {
+        max-width: 280px; /* Adjust image size for smaller screens */
+    }
+
+    .skills-grid {
+        grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+        gap: 15px;
+    }
+
+    .skill-item i {
+        font-size: 3em;
+    }
+
+    .skill-item h3 {
+        font-size: 1em;
+    }
+
+    .projects-grid {
+        grid-template-columns: 1fr; /* Single column on very small screens */
+    }
+
+    .project-card h3 {
+        font-size: 1.4em;
+    }
+
+    .resume-section {
+        padding: 80px 0;
+    }
+
+    .resume-section h2 {
+        font-size: 2em;
+    }
+
+    .resume-section p {
+        font-size: 1em;
+    }
+
+    .contact-form {
+        padding: 30px 20px;
+    }
+
+    .form-group input,
+    .form-group textarea {
+        padding: 10px;
+    }
+
+    .footer .social-links a {
+        font-size: 1.8em;
+        margin: 0 12px;
+    }
+}
+
+/* Fine-tuning for very small mobile devices ( pantallas hasta 480px de ancho ) */
+@media (max-width: 480px) {
+    .container {
+        padding: 0 15px;
+    }
+    
+    .navbar .logo {
+        font-size: 1.6em;
+    }
+
+    .hero-section h1 {
+        font-size: 2.5em;
+    }
+    .hero-section .title {
+        font-size: 1.3em;
+    }
+    .hero-section .short-line {
+        font-size: 0.95em;
+    }
+    .hero-section .btn {
+        padding: 10px 20px;
+        font-size: 0.9em;
+    }
+
+    h2 {
+        font-size: 1.8em;
+    }
+
+    .skills-grid {
+        grid-template-columns: repeat(2, 1fr); /* 2 columns for very small screens */
+        gap: 10px;
+    }
+    .skill-item i {
+        font-size: 2.5em;
+    }
+    .skill-item h3 {
+        font-size: 0.9em;
+    }
+
+    .project-card h3 {
+        font-size: 1.2em;
+    }
+    .project-card p {
+        font-size: 0.9em;
+    }
+
+    .resume-section .btn-primary {
+        font-size: 1.1em;
+        padding: 14px 30px;
+    }
+
+    .contact-form {
+        padding: 25px 15px;
+    }
+
+    .footer p {
+        font-size: 0.8em;
+    }
+}
